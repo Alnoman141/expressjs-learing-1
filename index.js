@@ -166,6 +166,99 @@ const app = express();
  * explore application object in express4 doc end
  */
 
+
+/**
+ * explore request object in express4 doc start
+ */
+// properties
+// req.baseUrl
+// req.baseUrl will return the path where our sub-app will mount
+
+// app.get('/user', (req, res) => {
+//     console.log(req.baseUrl) // it will log empty because we are in main route. here we hava no sub app
+//     res.send('We are in user page')
+// })
+
+// const adminRoute = express.Router();
+// app.use('/admin', adminRoute);
+
+// adminRoute.get('/dashboard', (req, res) => {
+//     console.log(req.baseUrl) // it will log /admin because our sub app mounted on /admin route
+//     res.send('We are in admin page');
+// })
+
+
+// req.originalUrl
+// req.originalUrl will return everythig except hostname and port
+// if we request http://localhost:3000/user?name=noman then req.originalUrl will return /user?name=noman
+
+
+// req.url
+// req.url will also return like req.originalUrl but req.url will modify when we use sub app
+
+// req.path
+// req.path will return the path name
+// let our request route is http://localhost:3000/user/3?name=noman. so req.path will return /user/3
+// let we have sub app and sub app url is admin and route is http://localhost:3000/admin/dashboard so req.path will return /admin/dashboard
+
+
+// req.hostname
+// req.host name will return the hostname
+// let say our request route is http://localhost:3000/user/3?name=noman. so req.hostname will return localhost
+
+// req.ip
+// req.ip will return the host ip
+// let say our request route is http://localhost:3000/user/3?name=noman. so req.hostname will return 127.0.0.1
+
+// req.method
+// req.ip will return the request http verb like POST, GET, PUT etc
+
+// req.protocol
+// req.protocol will return the requests protocol like http or https
+
+// req.params
+// req.params will return our parameter as a object
+// suppose our requested url is http://localhost:3000/user/3 and route is
+// app.get('user/:id', (req, res) => {
+//     console.log(req.params) // will return { id: '3' }
+// })
+
+// req.body
+// req.body will return the things that will send with request by form or json.
+
+// req.cookies
+// our http client sometimes send some cookies with the request. req.cookies will return those cookies
+// for parse cookie we need to install cookie-parser npm package and use it
+
+
+// req.signedCookies
+// if we use more secure cookies like cripto cookies then we will the the cookies by req.signedCookies
+
+// req.secure
+// if we request with http protocol req.secure will return false.
+// if we request with https protocol req.secure will return true.
+
+// req.app
+// when we will work with module system in the module file sometimes we need the app Object by the req.app we can access the app object easyly
+
+// req.route
+// req.route will return hole the router instance  
+
+// methods
+// req.accept() method will return the client's accepted things only. if client accept 'application/json' the res.accept() will return application/json
+// app.get('user', (req, res) => {
+//     if(req.accepts('html')){
+//         res.render(index)
+//     } else if (req.accepts('json')){
+//         res.send({name: 'bangladesh'})
+//     } else {
+//         console.log('hello world')
+//     }
+// })
+
+// req.get() method will use for find any headers value
+// suppose req.get('content-type')
+
 app.listen(3000, () => {
     console.log('app is listening on port 3000')
 
