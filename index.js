@@ -259,6 +259,138 @@ const app = express();
 // req.get() method will use for find any headers value
 // suppose req.get('content-type')
 
+/**
+ * explore request object in express4 doc end
+ */
+
+/**
+ * explore response object in express4 doc start
+ */
+
+// properties
+// req.app will return the main app instance\
+
+// res.headersSent will return true or false depends on header sent or not
+// app.get('/', (req, res) => {
+//     console.log(res.headersSent) // it will log false because header is not sent yet
+//     res.send('hello world');
+//     console.log(res.headersSent) // it will log true because header was already sent
+// })
+
+// res.locals will set local variables in our application. we can use those variables in view or template part
+
+// app.set('view engine', 'ejs');
+// app.get('/about', (req, res) => {
+//     res.render('pages/about', {
+//         name: 'Bangladesh'
+//     })
+// })
+
+
+// methods
+// resizeBy.cookie() by this method we can set cookie
+// app.get('/', (req, res) => {
+//     res.cookie('name', 'Noman')
+//     res.end()
+// })
+
+// res.clearCookie() by this method we can clear our previously set cookies
+// app.get('/', (req, res) => {
+//     res.clearCookie('name')
+//     res.end()
+// })
+
+// res.end() by this method we can end our response
+// app.get('/', (req, res) => {
+//     res.end()
+// })
+
+
+// res.send() by this method we can end our responsw with data.
+// app.get('/', (req, res) => {
+//     res.send('hellow world')
+// })
+
+// res.json() by this method we can send response as a json object
+// app.get('/', (req, res) => {
+//     res.json({
+//         name: 'bangladesh'
+//     })
+// })
+
+// res.status() by this method we can send status without end the response
+// app.get('/', (req, res) => {
+//     res.status(200)
+//     res.end()
+// })
+
+
+// res.sendStatus by this method we can send response and a status code and end the response
+// app.get('/', (req, res) => {
+//     res.sendStatus(404)
+// })
+
+
+// res.render will render our view or templete for frontend
+// app.set('view engine', 'ejs');
+// app.get('/about', (req, res) => {
+//     res.render('pages/about')
+// })
+
+// res.format() will format response by the request header (req.accepts())
+// app.set('view engine', 'ejs');
+// app.get('/about', (req, res) => {
+//     res.format({
+//         'text/plain' : () => {
+//             res.send('Hello')
+//         },
+//         'text/html': () => {
+//             res.render('pages/about', {
+//                 name: 'Noman'
+//             })
+//         },
+//         'application/json': () => {
+//             res.json({
+//                 name: 'Noman'
+//             })
+//         },
+//         default: () => {
+//             res.sendStatus(406)
+//         }
+//     })
+// })
+
+// res.location() will set a header named location in the response
+// app.get('/', (req, res) => {
+//     res.location('/about');
+//     res.send('hello world');
+// })
+
+// res.redirect() will redirect where we want
+// app.get('/', (req, res) => {
+//     res.redirect('/contact')
+// })
+
+// app.get('/contact', (req, res) => {
+//     res.send('hello fron contact page')
+// })
+
+// res.set() by this method we can set http header when response will send
+// app.get('/', (req, res) => {
+//     res.set('name', 'noman14')
+//     res.send('hello world')
+// })
+
+// res.get() by this method we can get http header like res.header('content-type')
+// app.get('/', (req, res) => {
+//     res.set('name', 'noman1416')
+//     res.send(res.get('name'));
+// })
+
+/**
+ * explore response object in express4 doc end
+ */
+
 app.listen(3000, () => {
     console.log('app is listening on port 3000')
 
