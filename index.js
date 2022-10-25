@@ -515,6 +515,96 @@ const app = express();
  * explore router concept in express 4 end
  */
 
+
+/**
+ * explore error handling concept in express 4 start
+ */
+
+// Error handling for synchronous codes
+
+// by default express synchronous codes error. but we can change those types of error
+// app.get('/', (req, res, next) => {
+//     // throw new Error('This is an error!')
+//     // res.send(a)
+//     // for stream & buffer data
+//     for(let i = 0; i <= 10; i++){
+//         if(i > 5){
+//             next('Some error happence!')
+//         } else {
+//             res.write('a')
+//         }
+//     }
+//     res.end()
+// })
+
+// // handle 404 page not found error
+// app.use((req, res, next) => {
+//     // res.status(404).send('Page not found!')
+//     next({message: 'Requested route not found!'})
+// })
+
+// // handle error
+// app.use((err, req, res, next) => {
+//     if(res.headersSent){
+//         next('Error')
+//     } else {
+//         if(err.message){
+//             res.status(500).send(err.message)
+//         } else {
+//             res.status(500).send('This is an error!')
+//         }
+//     }
+// })
+
+// Error handling for asynchronous codes
+
+const fs = require('fs')
+
+// app.get('/', (req, res, next) => {
+//     fs.readFile('./public/hello.txt', (err, data) => {
+//         if(err) {
+//             next(err.message)
+//         } else {
+//             res.send(data)
+//         }
+//     })
+// })
+
+// app.get('/', (req, res, next) => {
+//     setTimeout(() => {
+//         try {
+//             console.log(a)
+//         } catch (err) { 
+//             next(err)
+//         }
+//     }, 100)
+// })
+
+// asynchronous codes error handling in synchronous way
+app.get('/', [
+    (req, res) => {
+        fs.readFile('./hello.html', (err, data) => {
+            console.log(data)
+            next(err)
+        })
+    },
+    (req, res, next) => {
+        console.log(data.property)
+    }
+])
+
+app.use((err, req, res, next) => {
+    if(res.headersSent){
+        next('Error')
+    } else {
+        if(err.message){
+            res.status(500).send(err.message)
+        } else {
+            res.status(500).send('This is an error!')
+        }
+    }
+})
+
 app.listen(3000, () => {
     console.log('app is listening on port 3000')
 
