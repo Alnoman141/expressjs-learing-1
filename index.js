@@ -500,7 +500,20 @@ const app = express();
  * explore middleware concept in express 4 end
  */
 
- 
+
+/**
+ * explore router concept in express 4 start
+ */
+
+// const adminRoute = require('./routes/adminRoutes');
+// const publicRoutes = require('./routes/publicRoutes');
+
+// app.use('/admin',adminRoute)
+// app.use('/',publicRoutes)
+
+/**
+ * explore router concept in express 4 end
+ */
 
 app.listen(3000, () => {
     console.log('app is listening on port 3000')
