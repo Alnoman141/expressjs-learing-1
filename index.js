@@ -391,6 +391,117 @@ const app = express();
  * explore response object in express4 doc end
  */
 
+ /**
+ * explore middleware concept in express 4 start
+ */
+
+//  simple application lebel middleware example
+
+// const myMiddleware = (req, res, next) => {
+//     console.log('You are passed by myMiddleware')
+//     next()
+// }
+
+// const demoMiddleware = (req, res, next) => {
+//     console.log('you are passed my demo middleware!')
+//     next();
+// }
+
+// app.use(myMiddleware);
+// app.use(demoMiddleware);
+
+// const logger = (req, res, next) => {
+//     console.log(`${new Date(Date.now()).toLocaleString()} - ${req.method} - ${req.protocol} - ${req.originalUrl} - ${req.ip}` )
+//     // next('hello') // it means it's an error
+//     next() // it means it's successful
+// }
+
+// app.use(logger);
+
+// app.get('/about', (req, res) => {
+//     res.send('I am in homepage')
+// })
+
+// router lebel middleware
+
+// const adminRoutes = express.Router();
+// app.use('/admin', adminRoutes);
+
+// const adminMiddleware  = (req, res, next) => {
+//     console.log(`${new Date(Date.now()).toLocaleString()} - ${req.method} - ${req.protocol} - ${req.originalUrl} - ${req.ip}` )
+//     next()
+// }
+
+// adminRoutes.use(adminMiddleware);
+
+// adminRoutes.get('/', (req, res) => {
+//     res.send('Welcome to admin dashboard!')
+// })
+
+// app.get('/', (req, res) => {
+//     res.send('I am in homepage')
+// })
+
+// third party middleware
+
+// const cookieParser = require('cookie-parser');
+
+// app.use(cookieParser()) // cookie-parser is a third pary liabrary that works as a middleware. So we called it a third party middleware
+
+
+// built-in middleware
+// app.use(express.json()) // express.json() is works as a built-in middleware
+
+// error handleing middleware
+
+// const appMiddleware = (req, res, next) => {
+//     console.log(`${new Date(Date.now()).toLocaleString()} - ${req.method} - ${req.protocol} - ${req.originalUrl} - ${req.ip}` )
+//     throw new Error('This is an error!')
+// }
+
+// app.use(appMiddleware);
+
+// const errorMiddleware = (err, req, res, next) => {
+//     res.status(500).send(err.message)
+// }
+
+// app.use(errorMiddleware);
+
+// app.get('/', (req, res) => {
+//     res.send('I am in homepage!')
+// })
+
+
+// configureable middleware
+
+// const configureableMiddleware = (options) => {
+//     return (req, res, next) => {
+//         if(options.log){
+//             console.log(`${new Date(Date.now()).toLocaleString()} - ${req.method} - ${req.protocol} - ${req.originalUrl} - ${req.ip}` )
+//             next()
+//         } else {
+//             throw new Error('this is a server side error. Log failed!')
+//         }
+//     }
+// }
+
+// const errorMiddleware = (err, req, res, next) => {
+//     res.status(500).send(err.message)
+// }
+
+// app.use(configureableMiddleware({ log: true }))
+// app.use(errorMiddleware)
+
+// app.get('/', (req, res) => {
+//     res.send('I am in homepage!')
+// })
+
+ /**
+ * explore middleware concept in express 4 end
+ */
+
+ 
+
 app.listen(3000, () => {
     console.log('app is listening on port 3000')
 
