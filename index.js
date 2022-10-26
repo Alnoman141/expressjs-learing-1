@@ -558,7 +558,7 @@ const app = express();
 
 // Error handling for asynchronous codes
 
-const fs = require('fs')
+// const fs = require('fs')
 
 // app.get('/', (req, res, next) => {
 //     fs.readFile('./public/hello.txt', (err, data) => {
@@ -581,29 +581,124 @@ const fs = require('fs')
 // })
 
 // asynchronous codes error handling in synchronous way
-app.get('/', [
-    (req, res) => {
-        fs.readFile('./hello.html', (err, data) => {
-            console.log(data)
-            next(err)
-        })
-    },
-    (req, res, next) => {
-        console.log(data.property)
-    }
-])
+// app.get('/', [
+//     (req, res) => {
+//         fs.readFile('./hello.html', (err, data) => {
+//             console.log(data)
+//             next(err)
+//         })
+//     },
+//     (req, res, next) => {
+//         console.log(data.property)
+//     }
+// ])
 
-app.use((err, req, res, next) => {
-    if(res.headersSent){
-        next('Error')
+// app.use((err, req, res, next) => {
+//     if(res.headersSent){
+//         next('Error')
+//     } else {
+//         if(err.message){
+//             res.status(500).send(err.message)
+//         } else {
+//             res.status(500).send('This is an error!')
+//         }
+//     }
+// })
+
+/**
+ * explore error handling concept in express 4 end
+ */
+
+/**
+ * file upload in express
+ */
+
+const multer = require('multer');
+const path = require('path');
+
+// File upload folder
+const UPLOADS_FOLDER = "./uploads/";
+
+// var upload = multer({ dest: UPLOADS_FOLDER });
+
+// define the storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, UPLOADS_FOLDER);
+  },
+  filename: (req, file, cb) => {
+    const fileExt = path.extname(file.originalname);
+    const fileName =
+      file.originalname
+        .replace(fileExt, "")
+        .toLowerCase()
+        .split(" ")
+        .join("-") +
+      "-" +
+      Date.now();
+
+    cb(null, fileName + fileExt);
+  },
+});
+
+// preapre the final multer upload object
+var upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1000000, // 1MB
+  },
+  fileFilter: (req, file, cb) => {
+    if (file.fieldname === "avatar") {
+      if (
+        file.mimetype === "image/png" ||
+        file.mimetype === "image/jpg" ||
+        file.mimetype === "image/jpeg"
+      ) {
+        cb(null, true);
+      } else {
+        cb(new Error("Only .jpg, .png or .jpeg format allowed!"));
+      }
+    } else if (file.fieldname === "doc") {
+      if (file.mimetype === "application/pdf") {
+        cb(null, true);
+      } else {
+        cb(new Error("Only .pdf format allowed!"));
+      }
     } else {
-        if(err.message){
-            res.status(500).send(err.message)
-        } else {
-            res.status(500).send('This is an error!')
-        }
+      cb(new Error("There was an unknown error!"));
     }
-})
+  },
+});
+
+// app.post('/', upload.single('avatar'), (req, res) => {
+//     res.send('Hello world!');
+// })
+
+// app.post('/', upload.array('avatar', 2), (req, res) => {
+//     res.send('Hello world')
+// }) // upload multiple files at once
+
+app.post('/', upload.fields([
+    { name: 'avatar', maxCount: 2 },
+    { name: 'doc', maxCount: 2 }
+]), (req, res) => {
+    console.log(req.files)
+    res.send('Hello world!')
+})  // upload multiple file from multiple fields
+
+const errorMiddleware = (err, req, res, next) => {
+    if(err) {
+        if( err instanceof multer.MulterError){
+            res.status(500).send('Error to upload file using multer!')
+        } else {
+            res.status(500).send(err.message)
+        }
+    } else {
+        res.status(200).send('Success')
+    }
+}
+
+app.use(errorMiddleware);
 
 app.listen(3000, () => {
     console.log('app is listening on port 3000')
