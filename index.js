@@ -678,27 +678,27 @@ var upload = multer({
 //     res.send('Hello world')
 // }) // upload multiple files at once
 
-app.post('/', upload.fields([
-    { name: 'avatar', maxCount: 2 },
-    { name: 'doc', maxCount: 2 }
-]), (req, res) => {
-    console.log(req.files)
-    res.send('Hello world!')
-})  // upload multiple file from multiple fields
+// app.post('/', upload.fields([
+//     { name: 'avatar', maxCount: 2 },
+//     { name: 'doc', maxCount: 2 }
+// ]), (req, res) => {
+//     console.log(req.files)
+//     res.send('Hello world!')
+// })  // upload multiple file from multiple fields
 
-const errorMiddleware = (err, req, res, next) => {
-    if(err) {
-        if( err instanceof multer.MulterError){
-            res.status(500).send('Error to upload file using multer!')
-        } else {
-            res.status(500).send(err.message)
-        }
-    } else {
-        res.status(200).send('Success')
-    }
-}
+// const errorMiddleware = (err, req, res, next) => {
+//     if(err) {
+//         if( err instanceof multer.MulterError){
+//             res.status(500).send('Error to upload file using multer!')
+//         } else {
+//             res.status(500).send(err.message)
+//         }
+//     } else {
+//         res.status(200).send('Success')
+//     }
+// }
 
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
 
 app.listen(3000, () => {
     console.log('app is listening on port 3000')
