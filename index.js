@@ -700,6 +700,49 @@ var upload = multer({
 
 // app.use(errorMiddleware);
 
+
+// mongoDB basics
+
+// commands
+
+// mongo: open mongodb terminal
+// cls: clear mongo terminal
+// show dbs: show all database list
+// we shound nerver touch defalut databases (admin, config, local)
+
+// cleate db: use <dbname>
+
+// create collection and insert a data
+// db.products.insertOne({name: 'iphone 11', pricr: 100000, category: 'smartphone', qty: 10, active: false})
+// here products is the name of our collection
+
+// show inserted data
+// db.products.find()
+
+// show data in well formated
+// db.products.find().pretty()
+
+// insert many data at a time
+// db.products.insertMany([{name: 'samgsung', pricr: 1000, category: 'smartphone', qty: 15, active: true}, {name: 'makbook pro 2022', pricr: 2500000, category: 'laptop', qty: 10, active: true}, {name: 'mac mini', pricr: 1200000, category: 'pc', qty: 10, active: false}])
+
+//  find(conditions, projections)
+
+// find data by conditions
+// db.products.find({active: false, category: 'smartphone'}).pretty()
+
+// find name and category name only with the conditions
+// db.products.find({active: false, category: 'smartphone'}, {active: 0, qty: 0}).pretty()
+
+// find data with limit
+// db.products.find({category: 'smartphone'}).limit(1).pretty()
+
+// find data with skip method
+// db.products.find({category: 'smartphone'}).limit(1).skip(1).pretty()
+
+// findOne method for full one data 
+// note: pretty method can't chain with fineOne()
+// db.products.findOne({category: 'smartphone'})
+
 app.listen(3000, () => {
     console.log('app is listening on port 3000')
 
