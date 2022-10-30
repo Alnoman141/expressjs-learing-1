@@ -613,62 +613,62 @@ const app = express();
  * file upload in express
  */
 
-const multer = require('multer');
-const path = require('path');
+// const multer = require('multer');
+// const path = require('path');
 
-// File upload folder
-const UPLOADS_FOLDER = "./uploads/";
+// // File upload folder
+// const UPLOADS_FOLDER = "./uploads/";
 
-// var upload = multer({ dest: UPLOADS_FOLDER });
+// // var upload = multer({ dest: UPLOADS_FOLDER });
 
-// define the storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, UPLOADS_FOLDER);
-  },
-  filename: (req, file, cb) => {
-    const fileExt = path.extname(file.originalname);
-    const fileName =
-      file.originalname
-        .replace(fileExt, "")
-        .toLowerCase()
-        .split(" ")
-        .join("-") +
-      "-" +
-      Date.now();
+// // define the storage
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, UPLOADS_FOLDER);
+//   },
+//   filename: (req, file, cb) => {
+//     const fileExt = path.extname(file.originalname);
+//     const fileName =
+//       file.originalname
+//         .replace(fileExt, "")
+//         .toLowerCase()
+//         .split(" ")
+//         .join("-") +
+//       "-" +
+//       Date.now();
 
-    cb(null, fileName + fileExt);
-  },
-});
+//     cb(null, fileName + fileExt);
+//   },
+// });
 
 // preapre the final multer upload object
-var upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1000000, // 1MB
-  },
-  fileFilter: (req, file, cb) => {
-    if (file.fieldname === "avatar") {
-      if (
-        file.mimetype === "image/png" ||
-        file.mimetype === "image/jpg" ||
-        file.mimetype === "image/jpeg"
-      ) {
-        cb(null, true);
-      } else {
-        cb(new Error("Only .jpg, .png or .jpeg format allowed!"));
-      }
-    } else if (file.fieldname === "doc") {
-      if (file.mimetype === "application/pdf") {
-        cb(null, true);
-      } else {
-        cb(new Error("Only .pdf format allowed!"));
-      }
-    } else {
-      cb(new Error("There was an unknown error!"));
-    }
-  },
-});
+// var upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 1000000, // 1MB
+//   },
+//   fileFilter: (req, file, cb) => {
+//     if (file.fieldname === "avatar") {
+//       if (
+//         file.mimetype === "image/png" ||
+//         file.mimetype === "image/jpg" ||
+//         file.mimetype === "image/jpeg"
+//       ) {
+//         cb(null, true);
+//       } else {
+//         cb(new Error("Only .jpg, .png or .jpeg format allowed!"));
+//       }
+//     } else if (file.fieldname === "doc") {
+//       if (file.mimetype === "application/pdf") {
+//         cb(null, true);
+//       } else {
+//         cb(new Error("Only .pdf format allowed!"));
+//       }
+//     } else {
+//       cb(new Error("There was an unknown error!"));
+//     }
+//   },
+// });
 
 // app.post('/', upload.single('avatar'), (req, res) => {
 //     res.send('Hello world!');
@@ -742,6 +742,18 @@ var upload = multer({
 // findOne method for full one data 
 // note: pretty method can't chain with fineOne()
 // db.products.findOne({category: 'smartphone'})
+
+// update one record
+// db.products.updateOne({name: 'iPhone 11'}, {$set: {qty: 100}})
+
+// update many record at a time
+// db.products.updateMany({active: false}, {$set: {active: true}})
+
+// delete one data
+// db.products.deleteOne({name: 'iPhone 11'})
+
+// delete many data at a time
+// db.products.deleteMany({qty: 10})
 
 app.listen(3000, () => {
     console.log('app is listening on port 3000')
